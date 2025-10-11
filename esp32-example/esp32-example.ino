@@ -2,21 +2,21 @@
 #include <HTTPClient.h>
 
 // --- Wi-Fi Configuration ---
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
+const char* ssid = "Arun";
+const char* password = "muthuarun123";
 
 // --- Server Configuration ---
-const char* serverAddress = "http://YOUR_SERVER_IP:3000"; // Replace with your computer's IP address
+const char* serverAddress = "https://z8wx84pw-3000.inc1.devtunnels.ms/"; // Replace with your computer's IP address
 
 // --- Charger Configuration ---
 const int stationId = 1;
 const char* vehicleId = "ESP32-Vehicle";
 
 // --- LED Configuration ---
-const int ledPin = LED_BUILTIN; // Usually GPIO 2 on ESP32
-
+const int ledPin = 2; // Usually GPIO 2 on ESP32
+bool sendChargingRequest(String action);
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   pinMode(ledPin, OUTPUT);
 
   // Connect to Wi-Fi
@@ -56,7 +56,11 @@ void loop() {
 
 bool sendChargingRequest(String action) {
   HTTPClient http;
-  String url = String(serverAddress) + "/api/charger/" + stationId + "/" + action;
+  String server = String(serverAddress);
+  if (server.endsWith("/")) {
+    server.remove(server.length() - 1);
+  }
+  String url = server + "/api/charger/" + stationId + "/" + action;
 
   http.begin(url);
   http.addHeader("Content-Type", "application/json");
