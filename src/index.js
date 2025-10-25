@@ -28,12 +28,12 @@ app.get('/api/charger/:stationId/status', (req, res) => {
 
 app.post('/api/charger/:stationId/start', (req, res) => {
     const { stationId } = req.params;
-    const { vehicleId } = req.body;
+    const { userId } = req.body;
 
     if (stations[stationId] && stations[stationId].status === 'Available') {
         stations[stationId].status = 'Charging';
-        stations[stationId].chargingVehicleId = vehicleId;
-        res.json({ message: `Charging started for vehicle ${vehicleId} at station ${stationId}` });
+        stations[stationId].userId = userId;
+        res.json({ message: `Charging started for user ${userId} at station ${stationId}` });
     } else if (!stations[stationId]) {
         res.status(404).json({ message: 'Station not found' });
     } else {
@@ -43,12 +43,12 @@ app.post('/api/charger/:stationId/start', (req, res) => {
 
 app.post('/api/charger/:stationId/stop', (req, res) => {
     const { stationId } = req.params;
-    const { vehicleId } = req.body;
+    const { userId } = req.body;
 
-    if (stations[stationId] && stations[stationId].status === 'Charging' && stations[stationId].chargingVehicleId === vehicleId) {
+    if (stations[stationId] && stations[stationId].status === 'Charging' && stations[stationId].userId === userId) {
         stations[stationId].status = 'Available';
-        stations[stationId].chargingVehicleId = null;
-        res.json({ message: `Charging stopped for vehicle ${vehicleId} at station ${stationId}` });
+        stations[stationId].userId = null;
+        res.json({ message: `Charging stopped for ${userId} at station ${stationId}` });
     } else if (!stations[stationId]) {
         res.status(404).json({ message: 'Station not found' });
     } else {

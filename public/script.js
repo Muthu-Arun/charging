@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="station-body">
                 <div class="form-group">
-                    <label for="vehicle-id-${stationId}">Vehicle ID:</label>
-                    <input type="text" id="vehicle-id-${stationId}" placeholder="Enter Vehicle ID">
+                    <label for="user-id-${stationId}">User ID:</label>
+                    <input type="text" id="user-id-${stationId}" placeholder="Enter User ID">
                 </div>
             </div>
             <div class="station-footer">
@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to start charging
     const startCharging = async (stationId) => {
-        const vehicleIdInput = document.getElementById(`vehicle-id-${stationId}`);
-        const vehicleId = vehicleIdInput.value;
+        const userIdInput = document.getElementById(`user-id-${stationId}`);
+        const userId = userIdInput.value;
 
-        if (!vehicleId) {
-            alert('Please enter a Vehicle ID');
+        if (!userId) {
+            alert('Please enter a User ID');
             return;
         }
 
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ vehicleId }),
+                body: JSON.stringify({ userId }),
             });
             const data = await response.json();
             alert(data.message);
@@ -87,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to stop charging
     const stopCharging = async (stationId) => {
-        const vehicleIdInput = document.getElementById(`vehicle-id-${stationId}`);
-        const vehicleId = vehicleIdInput.value;
+        const userIdInput = document.getElementById(`user-id-${stationId}`);
+        const userId = userIdInput.value;
 
-        if (!vehicleId) {
-            alert('Please enter a Vehicle ID');
+        if (!userId) {
+            alert('Please enter a User ID');
             return;
         }
 
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ vehicleId }),
+                body: JSON.stringify({ userId }),
             });
             const data = await response.json();
             alert(data.message);
